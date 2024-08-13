@@ -309,6 +309,7 @@ class DomEl {
     }
 
     css(property, value) {
+        console.log('property', property)
         if (typeof property === 'string' && typeof value === 'string') {
             // 设置单个属性
             this.getTarget().style[property] = value;
@@ -321,6 +322,7 @@ class DomEl {
             }
         } else if (typeof property === 'string' && typeof value === 'undefined') {
             // 获取单个属性
+            const element = this.getTarget();
             return window.getComputedStyle(element)[property];
         }
     }

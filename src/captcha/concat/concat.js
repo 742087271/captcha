@@ -10,7 +10,7 @@ function getTemplate(styleConfig) {
     return `
     <div id="tianai-captcha" class="tianai-captcha-slider tianai-captcha-concat">
     <div class="slider-tip">
-        <span id="tianai-captcha-slider-move-track-font" >拖动滑块完成拼图</span>
+        <span id="tianai-captcha-slider-move-track-font" >${styleConfig.tips || '请完成安全验证'}</span>
     </div>
     <div class="content">
         <div class="tianai-captcha-slider-concat-img-div" id="tianai-captcha-slider-concat-img-div">
@@ -23,6 +23,7 @@ function getTemplate(styleConfig) {
         <div class="slider-move-track">
             <div id="tianai-captcha-slider-move-track-mask"></div>
             <div class="slider-move-shadow"></div>
+            <span>${styleConfig.moveTrackText || '向右拖动滑块填充拼图'}</span>
         </div>
         <div class="slider-move-btn" id="tianai-captcha-slider-move-btn">
         </div>
@@ -77,20 +78,19 @@ class Concat extends CommonCaptcha {
         this.el.find("#tianai-captcha-slider-move-track-mask").css("width", moveX + "px")
     }
 
-    loadStyle() {
+    loadStyle () {
         let sliderImg = "";
         let moveTrackMaskBorderColor = "#00f4ab";
-        let moveTrackMaskBgColor = "#a9ffe5";
+        let moveBtnBgColor = "#C80F0F";
         const styleConfig = this.styleConfig;
         if (styleConfig) {
             sliderImg = styleConfig.btnUrl;
-            moveTrackMaskBgColor = styleConfig.moveTrackMaskBgColor;
+            moveBtnBgColor = styleConfig.moveBtnBgColor;
             moveTrackMaskBorderColor = styleConfig.moveTrackMaskBorderColor;
         }
-        this.el.find(".slider-move .slider-move-btn").css("background-image", "url(" + sliderImg + ")");
-        // this.el.find("#tianai-captcha-slider-move-track-font").text(title);
-        this.el.find("#tianai-captcha-slider-move-track-mask").css("border-color", moveTrackMaskBorderColor);
-        this.el.find("#tianai-captcha-slider-move-track-mask").css("background-color", moveTrackMaskBgColor);
+        this.el.find(".slider-move .slider-move-btn").css("backgroundImage", "url(" + sliderImg + ")");
+        this.el.find("#tianai-captcha-slider-move-track-mask").css("borderColor", moveTrackMaskBorderColor);
+        this.el.find(".slider-move .slider-move-btn").css("backgroundColor", moveBtnBgColor);
     }
 
     loadCaptchaForData(that, data) {
